@@ -9,9 +9,7 @@ import (
 
 func main() {
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, Code Runner!")
-	})
+	e.Static("/", "static")
 
 	e.POST("/run", func(c echo.Context) error {
 		payload := &runner.Payload{}
