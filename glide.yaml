@@ -1,0 +1,10 @@
+package: code_runner
+import:
+- package: github.com/prasmussen/glot-code-runner
+- package: github.com/labstack/echo
+- package: github.com/labstack/gommon/color
+- package: github.com/labstack/gommon/log
+- package: golang.org/x/crypto/acme/autocert
+- package: github.com/mattn/go-colorable
+- package: github.com/mattn/go-isatty
+- package: github.com/valyala/fasttemplate 
