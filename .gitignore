@@ -1,3 +1,4 @@
 vendor
 build
 .DS_Store
+*.pem

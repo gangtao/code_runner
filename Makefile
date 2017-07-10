@@ -7,6 +7,9 @@ DOCKER_ID_USER ?= naughtytao
 build:
 	glide install && make compile
 
+gen_cert:
+	go run $GOROOT/src/crypto/tls/generate_cert.go --host localhost
+
 compile:
 	go build -o ./build/server ./server.go
 

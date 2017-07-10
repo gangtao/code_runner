@@ -7,6 +7,11 @@ To run this in docker
 docker pull naughtytao/code_runner
 docker run -p 8080:8080 naughtytao/code_runner
 ```
+or you can start https with 
+```bash
+docker run -p 8080:8080 naughtytao/code_runner -s
+```
+
 The you can test it with curl
 
 ```bash
@@ -15,6 +20,15 @@ curl \
   http://localhost:8080/run \
   -H 'Content-Type: application/json' \
   -d '{"language":"python","files":[{"name":"main.py","content":"print(42)"}]}'
+```
+in case you are using https, run following test
+```bash
+curl \
+  -X POST \
+  https://localhost:8080/run \
+  -H 'Content-Type: application/json' \
+  -d '{"language":"python","files":[{"name":"main.py","content":"print(42)"}]}'\
+  -k
 ```
 
 The following result should return
