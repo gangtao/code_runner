@@ -4,13 +4,35 @@ import (
 	runner "code_runner/runner"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"github.com/labstack/echo"
+	"io/ioutil"
 	"net/http"
 )
 
 var (
 	is_secure = flag.Bool("s", false, "use https")
 )
+
+const (
+	CODE_BASE_DIR = "code"
+	CODE_POST_FIX = "txt"
+)
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+func get_code(language *string, id *string) (error, string) {
+	path := fmt.Sprintf("./%s/%s/%s.%s", CODE_BASE_DIR, *language, *id, CODE_POST_FIX)
+	dat, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err, "Failed to read file"
+	}
+	return nil, string(dat)
+}
 
 func main() {
 	flag.Parse()
@@ -33,6 +55,17 @@ func main() {
 		}
 
 		return c.String(http.StatusOK, string(result_str))
+	})
+
+	e.GET("/run/:language/:id", func(c echo.Context) error {
+		language := c.Param("language")
+		id := c.Param("id")
+
+		err, code := get_code(&language, &id)
+		if err != nil {
+			return c.String(http.StatusInternalServerError, code)
+		}
+		return c.String(http.StatusOK, code)
 	})
 
 	if *is_secure {
