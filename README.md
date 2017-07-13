@@ -1,5 +1,6 @@
 # Introduction
 This project is based on https://github.com/prasmussen/glot-code-runner, it provides a golang based webserver to run the code using https://echo.labstack.com.
+Now this project support Python/Golang, will consider to add more language support.
 
 # Run in Docker
 To run this in docker
